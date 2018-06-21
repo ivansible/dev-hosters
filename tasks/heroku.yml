@@ -1,0 +1,15 @@
+---
+- name: add heroku signing key
+  apt_key:
+    url: https://cli-assets.heroku.com/apt/release.key
+
+- name: add heroku repository
+  apt_repository:
+    repo: deb https://cli-assets.heroku.com/apt ./
+    filename: heroku
+    mode: 0644
+
+- name: install heroku toolbeit
+  apt:
+    name: heroku
+...

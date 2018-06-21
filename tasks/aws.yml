@@ -1,0 +1,5 @@
+---
+- name: install aws cli
+  apt:
+    name: awscli
+...

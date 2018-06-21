@@ -1,2 +1,11 @@
 ---
 # defaults file for ivansible.lin-hosters
+
+linhost_allow_reinstall: no
+
+linhost_doctl_release: latest
+
+linhost_doctl_token: ''
+
+linhost_vultr_release: latest
+...

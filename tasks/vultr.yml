@@ -1,0 +1,28 @@
+---
+- name: detect latest vultr cli release
+  uri:
+    url: https://github.com/JamesClonk/vultr/releases/latest
+    method: HEAD
+  connection: local
+  register: latest_vultr_release
+  when: linhost_vultr_release == 'latest'
+
+- set_fact:
+    linhost_vultr_release: "{{ latest_vultr_release.url | basename }}"
+  when: latest_vultr_release is not skipped
+
+- debug:
+    msg: "latest vultr cli release: {{ linhost_vultr_release }}"
+  run_once: true
+  when: latest_vultr_release is not skipped
+
+- name: download and unpack vultr cli
+  unarchive:
+    remote_src: yes
+    src: https://github.com/JamesClonk/vultr/releases/download/{{ linhost_vultr_release }}/vultr_{{ linhost_vultr_release }}_Linux-64bit.tar.gz
+    dest: /usr/local/bin
+    exclude:
+      - LICENSE
+      - README.md
+    creates: "{{ linhost_allow_reinstall | ternary(omit, '/usr/local/bin/vultr') }}"
+...

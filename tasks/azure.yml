@@ -1,0 +1,14 @@
+---
+- name: add azure signing key
+  apt_key:
+    url: https://packages.microsoft.com/keys/microsoft.asc
+
+- name: add azure repository
+  apt_repository:
+    repo: deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_lsb.codename }} main
+    filename: azure-cli
+
+- name: install azure cli
+  apt:
+    name: azure-cli
+...
