@@ -8,4 +8,7 @@ linhost_doctl_release: latest
 linhost_doctl_token: ''
 
 linhost_vultr_release: latest
+
+linhost_doctl_binary: /usr/local/bin/doctl
+linhost_vultr_binary: /usr/local/bin/vultr
 ...

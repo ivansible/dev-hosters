@@ -3,6 +3,7 @@
   uri:
     url: https://github.com/digitalocean/doctl/releases/latest
     method: HEAD
+    creates: "{{ linhost_allow_reinstall | ternary(omit, linhost_doctl_binary) }}"
   connection: local
   register: latest_doctl_release
   when: linhost_doctl_release == 'latest'
@@ -11,22 +12,29 @@
     linhost_doctl_release:
       "{{ latest_doctl_release.url | basename | regex_replace('^v') }}"
   when: latest_doctl_release is not skipped
+        and latest_doctl_release.url is defined
 
 - debug:
     msg: "latest do-ctl release: {{ linhost_doctl_release }}"
   run_once: true
   when: latest_doctl_release is not skipped
+        and latest_doctl_release.url is defined
 
 - name: download do-ctl
   unarchive:
     remote_src: yes
     src: https://github.com/digitalocean/doctl/releases/download/v{{ linhost_doctl_release }}/doctl-{{ linhost_doctl_release }}-linux-amd64.tar.gz
-    dest: /usr/local/bin
-    creates: "{{ linhost_allow_reinstall | ternary(omit, '/usr/local/bin/doctl') }}"
+    dest: "{{ linhost_doctl_binary | dirname }}"
+    creates: "{{ linhost_allow_reinstall | ternary(omit, linhost_doctl_binary) }}"
 
 - name: authenticate with digital ocean
-  command: /usr/local/bin/doctl auth init -t {{ linhost_doctl_token }}
-  args:
+  command:
+    argv:
+      - /usr/local/bin/doctl
+      - auth
+      - init
+      - -t
+      - "{{ linhost_doctl_token }}"
     creates: ~/.config/doctl/config.yaml
   become: no
   when: "linhost_doctl_token != ''
