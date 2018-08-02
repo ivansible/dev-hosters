@@ -4,7 +4,7 @@
     url: https://github.com/JamesClonk/vultr/releases/latest
     method: HEAD
     creates: "{{ linhost_allow_reinstall | ternary(omit, linhost_vultr_binary) }}"
-  connection: local
+  #connection: local  # never use this with "creates"
   register: latest_vultr_release
   when: linhost_vultr_release == 'latest'
 

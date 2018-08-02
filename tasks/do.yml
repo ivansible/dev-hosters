@@ -4,7 +4,7 @@
     url: https://github.com/digitalocean/doctl/releases/latest
     method: HEAD
     creates: "{{ linhost_allow_reinstall | ternary(omit, linhost_doctl_binary) }}"
-  connection: local
+  #connection: local  # never use this with "creates"
   register: latest_doctl_release
   when: linhost_doctl_release == 'latest'
 
