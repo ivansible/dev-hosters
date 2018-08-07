@@ -42,7 +42,7 @@ None
 
 ## Example Playbook
 
-    - hosts: dock2
+    - hosts: vag2
       roles:
         - role: ivansible.lin-hosters
 
