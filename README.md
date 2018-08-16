@@ -1,4 +1,4 @@
-# Role ivansible.lin-hosters
+# ivansible.lin_hosters
 
 Install CLI for Amazon AWS, Azure, DigitalOcean, Heroku, Vultr.
 
@@ -44,7 +44,7 @@ None
 
     - hosts: vag2
       roles:
-        - role: ivansible.lin-hosters
+        - role: ivansible.lin_hosters
 
 
 ## License

@@ -1,5 +1,5 @@
 ---
-# defaults file for ivansible.lin-hosters
+# defaults file for ivansible.lin_hosters
 
 linhost_allow_reinstall: no
 

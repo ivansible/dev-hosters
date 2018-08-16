@@ -2,7 +2,7 @@
 dependencies: []
 
 galaxy_info:
-
+  role_name: lin_hosters
   author: "Ivan Andreev"
   description: "Install CLI for Amazon AWS, Azure, DigitalOcean, Heroku, Vultr"
   company: "IvanSible"
