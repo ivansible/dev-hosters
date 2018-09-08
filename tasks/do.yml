@@ -37,6 +37,5 @@
       - "{{ linhost_doctl_token }}"
     creates: ~/.config/doctl/config.yaml
   become: no
-  when: "linhost_doctl_token != ''
-         and 'workspace' in group_names"
+  when: linhost_doctl_token != ''
 ...

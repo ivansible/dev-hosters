@@ -21,9 +21,9 @@ None
 
 Allows to refresh already downloaded redistributables.
 
-    linhost_doctl_token: ''
+    linhost_doctl_token: ""
 
-API token for DigitalOcean (only eligible for `workspace` group).
+API token for DigitalOcean (only eligible for `permitted` host group).
 
 
 ## Tags
