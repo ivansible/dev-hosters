@@ -28,14 +28,13 @@
     creates: "{{ linhost_allow_reinstall | ternary(omit, linhost_doctl_binary) }}"
 
 - name: authenticate with digital ocean
-  command:
-    argv:
-      - /usr/local/bin/doctl
-      - auth
-      - init
-      - -t
-      - "{{ linhost_doctl_token }}"
+  # use transient environment variable to hide token from command line
+  shell: >
+    {{ linhost_doctl_binary }} auth init -t "$_doctl_token"
+  args:
     creates: ~/.config/doctl/config.yaml
+  environment:
+    _doctl_token: "{{ linhost_doctl_token }}"
   become: no
   when: linhost_doctl_token != ''
 ...
