@@ -3,23 +3,22 @@
 
 - setup:
 
-- import_tasks: aws.yml
-  become: yes
-  tags: linhost_aws
+- block:
+    - import_tasks: aws.yml
+      tags: linhost_aws
 
-- import_tasks: azure.yml
-  become: yes
-  tags: linhost_azure
+    - import_tasks: azure.yml
+      tags: linhost_azure
 
-- import_tasks: do.yml
-  become: yes
-  tags: linhost_do
+    - import_tasks: do.yml
+      tags: linhost_do
 
-- import_tasks: heroku.yml
-  become: yes
-  tags: linhost_heroku
+    - import_tasks: heroku.yml
+      tags: linhost_heroku
 
-- import_tasks: vultr.yml
+    - import_tasks: vultr.yml
+      tags: linhost_vultr
   become: yes
-  tags: linhost_vultr
+  tags: lin_hosters
+  # end of block
 ...
