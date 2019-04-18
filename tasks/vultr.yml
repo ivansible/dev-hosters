@@ -22,7 +22,7 @@
 - name: download and unpack vultr cli
   unarchive:
     remote_src: yes
-    src: https://github.com/JamesClonk/vultr/releases/download/{{ linhost_vultr_release }}/vultr_{{ linhost_vultr_release }}_Linux-64bit.tar.gz
+    src: https://github.com/JamesClonk/vultr/releases/download/{{ linhost_vultr_release }}/vultr_{{ linhost_vultr_release | regex_replace('^v') }}_Linux-64bit.tar.gz
     dest: "{{ linhost_vultr_binary | dirname }}"
     exclude:
       - LICENSE
