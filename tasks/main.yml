@@ -21,4 +21,11 @@
   become: yes
   tags: lin_hosters
   # end of block
+
+- import_tasks: terraform.yml
+  become: no
+  tags:
+  - linhost_terraform
+  - lin_hosters
+  - ip4only
 ...

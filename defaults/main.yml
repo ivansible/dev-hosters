@@ -11,4 +11,15 @@ linhost_vultr_release: latest
 
 linhost_doctl_binary: /usr/local/bin/doctl
 linhost_vultr_binary: /usr/local/bin/vultr
+
+terraform_plugin_dir: ~/.terraform.d/plugins
+terraform_version: "0.11.13"
+terraform_provisioner_ansible_repo_owner: radekg
+terraform_provisioner_ansible_version: v2.2.0
+terraform_provider_vultr_repo_owner: squat
+terraform_provider_vultr_version: v0.1.9
+
+terraform_plans_repo: please_change_me
+terraform_plans_branch: master
+terraform_plans_dir: ~/devel/terradeex
 ...
