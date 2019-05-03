@@ -1,31 +1,24 @@
 ---
-# tasks file for ivansible.lin_hosters
+# tasks file for ivansible.dev_hosters
 
 - setup:
 
 - block:
     - import_tasks: aws.yml
-      tags: linhost_aws
+      tags: devhost_aws
 
     - import_tasks: azure.yml
-      tags: linhost_azure
+      tags: devhost_azure
 
-    - import_tasks: do.yml
-      tags: linhost_do
+    - import_tasks: digitalocean.yml
+      tags: devhost_digitalocean
 
     - import_tasks: heroku.yml
-      tags: linhost_heroku
+      tags: devhost_heroku
 
     - import_tasks: vultr.yml
-      tags: linhost_vultr
+      tags: devhost_vultr
   become: yes
-  tags: lin_hosters
+  tags: dev_hosters
   # end of block
-
-- import_tasks: terraform.yml
-  become: no
-  tags:
-  - linhost_terraform
-  - lin_hosters
-  - ip4only
 ...

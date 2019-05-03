@@ -1,25 +1,14 @@
 ---
-# defaults file for ivansible.lin_hosters
+# defaults file for ivansible.dev_hosters
 
-linhost_allow_reinstall: no
+devhost_allow_reinstall: no
 
-linhost_doctl_release: latest
+devhost_doctl_release: latest
 
-linhost_doctl_token: ""
+devhost_digitalocean_token: ""
 
-linhost_vultr_release: latest
+devhost_vultr_release: latest
 
-linhost_doctl_binary: /usr/local/bin/doctl
-linhost_vultr_binary: /usr/local/bin/vultr
-
-terraform_plugin_dir: ~/.terraform.d/plugins
-terraform_version: "0.11.13"
-terraform_provisioner_ansible_repo_owner: radekg
-terraform_provisioner_ansible_version: v2.2.0
-terraform_provider_vultr_repo_owner: squat
-terraform_provider_vultr_version: v0.1.9
-
-terraform_plans_repo: please_change_me
-terraform_plans_branch: master
-terraform_plans_dir: ~/devel/terradeex
+devhost_doctl_binary: /usr/local/bin/doctl
+devhost_vultr_binary: /usr/local/bin/vultr
 ...

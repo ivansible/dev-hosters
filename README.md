@@ -1,4 +1,4 @@
-# ivansible.lin_hosters
+# ivansible.dev_hosters
 
 Install CLI for Amazon AWS, Azure, DigitalOcean, Heroku, Vultr.
 
@@ -17,22 +17,22 @@ None
 
 ## Variables
 
-    linhost_allow_reinstall: no
+    devhost_allow_reinstall: no
 
 Allows to refresh already downloaded redistributables.
 
-    linhost_doctl_token: ""
+    devhost_digitalocean_token: ""
 
 API token for DigitalOcean (only eligible for `permitted` host group).
 
 
 ## Tags
 
-- `linhost_aws`
-- `linhost_azure`
-- `linhost_do`
-- `linhost_heroku`
-- `linhost_vultr`
+- `devhost_aws`
+- `devhost_azure`
+- `devhost_do`
+- `devhost_heroku`
+- `devhost_vultr`
 
 
 ## Dependencies
@@ -44,7 +44,7 @@ None
 
     - hosts: vag2
       roles:
-        - role: ivansible.lin_hosters
+        - role: ivansible.dev_hosters
 
 
 ## License

@@ -2,5 +2,5 @@
 - hosts: localhost
   remote_user: username
   roles:
-    - ivansible.lin_hosters
+    - ivansible.dev_hosters
 ...

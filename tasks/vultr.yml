@@ -3,18 +3,18 @@
   uri:
     url: https://github.com/JamesClonk/vultr/releases/latest
     method: HEAD
-    creates: "{{ linhost_allow_reinstall | ternary(omit, linhost_vultr_binary) }}"
+    creates: "{{ devhost_allow_reinstall | ternary(omit, devhost_vultr_binary) }}"
   #connection: local  # never use this with "creates"
   register: latest_vultr_release
-  when: linhost_vultr_release == 'latest'
+  when: devhost_vultr_release == 'latest'
 
 - set_fact:
-    linhost_vultr_release: "{{ latest_vultr_release.url | basename }}"
+    devhost_vultr_release: "{{ latest_vultr_release.url | basename }}"
   when: latest_vultr_release is not skipped
         and latest_vultr_release.url is defined
 
 - debug:
-    msg: "latest vultr cli release: {{ linhost_vultr_release }}"
+    msg: "latest vultr cli release: {{ devhost_vultr_release }}"
   run_once: true
   when: latest_vultr_release is not skipped
         and latest_vultr_release.url is defined
@@ -22,10 +22,10 @@
 - name: download and unpack vultr cli
   unarchive:
     remote_src: yes
-    src: https://github.com/JamesClonk/vultr/releases/download/{{ linhost_vultr_release }}/vultr_{{ linhost_vultr_release | regex_replace('^v') }}_Linux-64bit.tar.gz
-    dest: "{{ linhost_vultr_binary | dirname }}"
+    src: https://github.com/JamesClonk/vultr/releases/download/{{ devhost_vultr_release }}/vultr_{{ devhost_vultr_release | regex_replace('^v') }}_Linux-64bit.tar.gz
+    dest: "{{ devhost_vultr_binary | dirname }}"
     exclude:
       - LICENSE
       - README.md
-    creates: "{{ linhost_allow_reinstall | ternary(omit, linhost_vultr_binary) }}"
+    creates: "{{ devhost_allow_reinstall | ternary(omit, devhost_vultr_binary) }}"
 ...
