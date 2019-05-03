@@ -4,11 +4,12 @@
 devhost_allow_reinstall: no
 
 devhost_doctl_release: latest
+devhost_vultr_release: latest
+devhost_awless_release: latest
 
 devhost_digitalocean_token: ""
 
-devhost_vultr_release: latest
-
 devhost_doctl_binary: /usr/local/bin/doctl
 devhost_vultr_binary: /usr/local/bin/vultr
+devhost_awless_binary: /usr/local/bin/awless
 ...

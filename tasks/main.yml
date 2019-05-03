@@ -4,6 +4,9 @@
     - import_tasks: aws.yml
       tags: devhost_aws
 
+    - import_tasks: awless.yml
+      tags: devhost_awless
+
     - import_tasks: azure.yml
       tags: devhost_azure
 

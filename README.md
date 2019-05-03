@@ -4,6 +4,7 @@ Install CLI for Amazon AWS, Azure, DigitalOcean, Heroku, Vultr.
 
 Installation instructions:
 - AWS:  https://docs.aws.amazon.com/cli/latest/userguide/awscli-install-linux.html
+- AWless:  https://github.com/wallix/awless/wiki/Installation
 - Azure:  https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-apt
 - DigitalOcean:  https://github.com/digitalocean/doctl#installing-doctl
 - Heroku:  https://devcenter.heroku.com/articles/heroku-cli#ubuntu-debian-apt-get
@@ -29,8 +30,9 @@ API token for DigitalOcean (only eligible for `permitted` host group).
 ## Tags
 
 - `devhost_aws`
+- `devhost_awless`
 - `devhost_azure`
-- `devhost_do`
+- `devhost_digitalocean`
 - `devhost_heroku`
 - `devhost_vultr`
 
