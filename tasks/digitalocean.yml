@@ -8,7 +8,8 @@
   register: latest_doctl_release
   when: devhost_doctl_release == 'latest'
 
-- set_fact:
+- name: extract do-ctl release from github page
+  set_fact:
     devhost_doctl_release:
       "{{ latest_doctl_release.url | basename | regex_replace('^v') }}"
   when: latest_doctl_release is not skipped
@@ -26,6 +27,12 @@
     src: https://github.com/digitalocean/doctl/releases/download/v{{ devhost_doctl_release }}/doctl-{{ devhost_doctl_release }}-linux-amd64.tar.gz
     dest: "{{ devhost_doctl_binary | dirname }}"
     creates: "{{ devhost_allow_reinstall | ternary(omit, devhost_doctl_binary) }}"
+
+- name: bash completion for do-ctl
+  lineinfile:
+    path: ~/.local/bashrc/5completion.sh
+    line: "source <(doctl completion bash)"
+  become: no
 
 - name: authenticate with digital ocean
   # use transient environment variable to hide token from command line

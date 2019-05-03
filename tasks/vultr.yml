@@ -8,7 +8,8 @@
   register: latest_vultr_release
   when: devhost_vultr_release == 'latest'
 
-- set_fact:
+- name: extract vultr release from github page
+  set_fact:
     devhost_vultr_release: "{{ latest_vultr_release.url | basename }}"
   when: latest_vultr_release is not skipped
         and latest_vultr_release.url is defined

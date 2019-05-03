@@ -2,4 +2,10 @@
 - name: install aws cli
   apt:
     name: awscli
+
+- name: bash completion for aws cli
+  lineinfile:
+    path: ~/.local/bashrc/5completion.sh
+    line: "complete -C /usr/bin/aws_completer aws"
+  become: no
 ...

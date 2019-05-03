@@ -1,7 +1,7 @@
 ---
 # tasks file for ivansible.dev_hosters
-
-- setup:
+- name: refresh host info
+  setup:
 
 - block:
     - import_tasks: aws.yml
