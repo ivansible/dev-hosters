@@ -9,7 +9,11 @@ devhost_awless_release: latest
 
 devhost_digitalocean_token: ""
 
+devhost_packet_auth_token: ""
+devhost_packet_default_project: ""
+
 devhost_doctl_binary: /usr/local/bin/doctl
 devhost_vultr_binary: /usr/local/bin/vultr
 devhost_awless_binary: /usr/local/bin/awless
+devhost_packet_binary: /usr/local/bin/packet
 ...

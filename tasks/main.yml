@@ -16,6 +16,9 @@
     - import_tasks: heroku.yml
       tags: devhost_heroku
 
+    - import_tasks: packet.yml
+      tags: devhost_packet
+
     - import_tasks: vultr.yml
       tags: devhost_vultr
   become: true

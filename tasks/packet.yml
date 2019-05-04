@@ -1,0 +1,54 @@
+---
+- name: check that Packet cli binary already exists
+  stat:
+    path: "{{ devhost_packet_binary }}"
+  register: packet_binary
+
+- block:
+  - name: install Go 1.10 for building Packet cli
+    apt:
+      name:
+      - golang-1.10
+
+  - name: create temporary directory for building Packet cli
+    tempfile:
+      prefix: build-packet-cli.
+      state: directory
+    register: packet_build_dir
+    notify: remove packet-cli build directory
+
+  - name: build Packet cli from source
+    shell: >
+      go get github.com/ebsarr/packet &&
+      mv -f {{ packet_build_dir.path }}/bin/packet {{ devhost_packet_binary }} &&
+      {{ devhost_packet_binary }} --version
+    args:
+      executable: /bin/bash
+      chdir: "{{ packet_build_dir.path }}"
+    environment:
+      PATH: /usr/lib/go-1.10/bin:/usr/bin:/bin:/usr/local/bin
+      GOPATH: "{{ packet_build_dir.path }}"
+    notify: remove packet-cli build cache
+
+  when: devhost_allow_reinstall |bool
+        or not packet_binary.stat.exists
+
+- name: cleanup temporary Packet files
+  meta: flush_handlers
+
+- block:
+  - name: create directory for Packet cli profile
+    file:
+      path: ~/.packet
+      state: directory
+
+  - name: create Packet cli profile
+    template:
+      src: packet-config.json.j2
+      dest: ~/.packet/config
+      mode: 0640
+  when: devhost_packet_auth_token
+        and devhost_packet_default_project
+        and 'permitted' in group_names
+  become: no
+...
