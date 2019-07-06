@@ -39,16 +39,16 @@
 - block:
   - name: create directory for Packet cli profile
     file:
-      path: ~/.packet
+      path: "{{ ansible_user_dir }}/.packet"
       state: directory
 
   - name: create Packet cli profile
     template:
       src: packet-config.json.j2
-      dest: ~/.packet/config
+      dest: "{{ ansible_user_dir }}/.packet/config"
       mode: 0640
   when: devhost_packet_auth_token
         and devhost_packet_default_project
-        and 'permitted' in group_names
+        and is_permitted |bool
   become: no
 ...

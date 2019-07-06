@@ -1,5 +1,6 @@
 ---
 # defaults file for ivansible.dev_hosters
+is_permitted: no
 
 devhost_allow_reinstall: no
 
