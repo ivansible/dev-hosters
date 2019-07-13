@@ -2,6 +2,9 @@
 - name: add azure signing key
   apt_key:
     url: https://packages.microsoft.com/keys/microsoft.asc
+  # fix sporadic .ru network failures
+  register: apt_key_result
+  until: "'timed out' not in apt_key_result.msg |default('')"
 
 - name: add azure repository
   apt_repository:
