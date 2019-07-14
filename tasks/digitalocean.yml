@@ -6,6 +6,7 @@
     creates: "{{ devhost_allow_reinstall | ternary(omit, devhost_doctl_binary) }}"
   #connection: local  # never use this with "creates"
   register: latest_doctl_release
+  until: latest_doctl_release is successful
   when: devhost_doctl_release == 'latest'
 
 - name: extract do-ctl release from github page

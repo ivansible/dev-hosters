@@ -6,6 +6,7 @@
     creates: "{{ devhost_allow_reinstall | ternary(omit, devhost_awless_binary) }}"
   #connection: local  # never use this with "creates"
   register: latest_awless_release
+  until: latest_awless_release is successful
   when: devhost_awless_release == 'latest'
 
 - name: extract awless release from github page

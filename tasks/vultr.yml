@@ -1,16 +1,17 @@
 ---
 - name: detect latest vultr cli release
   uri:
-    url: https://github.com/JamesClonk/vultr/releases/latest
+    url: https://github.com/vultr/vultr-cli/releases/latest
     method: HEAD
     creates: "{{ devhost_allow_reinstall | ternary(omit, devhost_vultr_binary) }}"
-  #connection: local  # never use this with "creates"
+  #connection: local  # never use connection=local with "creates"
   register: latest_vultr_release
+  until: latest_vultr_release is successful
   when: devhost_vultr_release == 'latest'
 
 - name: extract vultr release from github page
   set_fact:
-    devhost_vultr_release: "{{ latest_vultr_release.url | basename }}"
+    devhost_vultr_release: "{{ latest_vultr_release.url | basename | regex_replace('^v','') }}"
   when: latest_vultr_release is not skipped
         and latest_vultr_release.url is defined
 
@@ -23,7 +24,7 @@
 - name: download and unpack vultr cli
   unarchive:
     remote_src: yes
-    src: https://github.com/JamesClonk/vultr/releases/download/{{ devhost_vultr_release }}/vultr_{{ devhost_vultr_release | regex_replace('^v') }}_Linux-64bit.tar.gz
+    src: https://github.com/vultr/vultr-cli/releases/download/v{{ devhost_vultr_release }}/vultr-cli_{{ devhost_vultr_release }}_linux_64-bit.tar.gz
     dest: "{{ devhost_vultr_binary | dirname }}"
     exclude:
       - LICENSE
