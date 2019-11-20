@@ -1,8 +1,5 @@
 ---
-# tasks file for ivansible.dev_hosters
-- name: refresh host info
-  setup:
-
+# tasks for ivansible.dev_hosters
 - block:
     - import_tasks: aws.yml
       tags: devhost_aws
@@ -18,7 +15,7 @@
 
     - import_tasks: vultr.yml
       tags: devhost_vultr
-  become: yes
+  become: true
   tags: dev_hosters
   # end of block
 ...
