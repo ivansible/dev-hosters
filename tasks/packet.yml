@@ -7,12 +7,14 @@
 - block:
     - name: detect installed Go version
       set_fact:
-        devhost_packet_golang_version: "{{ devhost_packet_golang_version |default(linbase_golang_version) |default(dev_user_golang_version) |default('0') }}"
+        devhost_packet_golang_version: "{{ devhost_packet_golang_version
+                                         | default(linbase_golang_version, true)
+                                         | default(dev_user_golang_version, true)
+                                         | default('0', true) }}"
 
     - name: install Go 1.10 for building Packet cli
       apt:
-        name:
-          - golang-1.10
+        name: golang-1.10
       when: devhost_packet_golang_version is version('1.10', '<')
 
     - name: set Go version for building Packet cli
@@ -28,18 +30,20 @@
       notify: remove packet-cli build directory
 
     - name: build Packet cli from source
-      shell: >
-        go version &&
-        go get github.com/ebsarr/packet &&
-        mv -f {{ packet_build_dir.path }}/bin/packet {{ devhost_packet_binary }} &&
-        {{ devhost_packet_binary }} --version
-      args:
-        executable: /bin/bash
-        chdir: "{{ packet_build_dir.path }}"
+      go:
+        name: github.com/ebsarr/packet
+        go_path: "{{ packet_build_dir.path }}"
       environment:
-        PATH: /usr/lib/go-{{ devhost_packet_golang_version }}/bin:/usr/bin:/bin:/usr/local/bin
-        GOROOT: /usr/lib/go-{{ devhost_packet_golang_version }}
-        GOPATH: "{{ packet_build_dir.path }}"
+        GOROOT: "{{ go_root }}"
+        PATH: "{{ go_root }}/bin:/usr/bin:/bin:/usr/local/bin"
+      vars:
+        go_root: /usr/lib/go-{{ devhost_packet_golang_version }}
+
+    - name: copy Packet cli in place
+      synchronize:
+        src: "{{ packet_build_dir.path }}/bin/packet"
+        dest: "{{ devhost_packet_binary }}"
+      delegate_to: "{{ inventory_hostname }}"
       notify: remove packet-cli build cache
 
   when: devhost_allow_reinstall |bool
