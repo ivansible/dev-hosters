@@ -1,38 +1,21 @@
 ---
 - name: detect latest awless release
-  uri:
-    url: https://github.com/wallix/awless/releases/latest
-    method: HEAD
-    creates: "{{ devhost_allow_reinstall | ternary(omit, devhost_awless_binary) }}"
-  #connection: local  # never use this with "creates"
+  github_release:
+    repository: wallix/awless
+    release: "{{ devhost_awless_release }}"
+    creates: "{{ devhost_awless_binary }}"
+    reinstall: "{{ devhost_allow_reinstall |bool }}"
+    template: "{download_url}/awless-linux-amd64.tar.gz"
   register: latest_awless_release
-  until: latest_awless_release is successful
-  when: devhost_awless_release == 'latest'
-
-- name: extract awless release from github page
-  set_fact:
-    devhost_awless_release:
-      "{{ latest_awless_release.url | basename | regex_replace('^v') }}"
-  when: latest_awless_release is not skipped
-        and latest_awless_release.url is defined
-
-- debug:
-    msg: "latest awless release: {{ devhost_awless_release }}"
-  run_once: true
-  when: latest_awless_release is not skipped
-        and latest_awless_release.url is defined
 
 - name: download awless
   unarchive:
-    remote_src: yes
-    src: https://github.com/wallix/awless/releases/download/v{{ devhost_awless_release }}/awless-linux-amd64.tar.gz
-    dest: "{{ devhost_awless_binary | dirname }}"
-    creates: "{{ devhost_allow_reinstall | ternary(omit, devhost_awless_binary) }}"
+    remote_src: true
+    src: "{{ latest_awless_release.url }}"
+    dest: "{{ devhost_awless_binary |dirname }}"
+  when: latest_awless_release is changed
 
 - name: bash completion for awless
-  shell: awless completion bash > {{ bash_completion_awless }}
-  args:
-    creates: "{{ devhost_allow_reinstall | ternary(omit, bash_completion_awless) }}"
-  vars:
-    bash_completion_awless: /etc/bash_completion.d/awless
+  shell: awless completion bash > /etc/bash_completion.d/awless
+  when: latest_awless_release is changed
 ...

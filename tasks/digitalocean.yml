@@ -1,39 +1,26 @@
 ---
 - name: detect latest do-ctl release
-  uri:
-    url: https://github.com/digitalocean/doctl/releases/latest
-    method: HEAD
-    creates: "{{ devhost_allow_reinstall | ternary(omit, devhost_doctl_binary) }}"
-  #connection: local  # never use this with "creates"
+  github_release:
+    repository: digitalocean/doctl
+    release: "{{ devhost_doctl_release }}"
+    creates: "{{ devhost_doctl_binary }}"
+    reinstall: "{{ devhost_allow_reinstall |bool }}"
+    strip_v: true
+    template: "{download_url}/doctl-{ver}-linux-amd64.tar.gz"
   register: latest_doctl_release
-  until: latest_doctl_release is successful
-  when: devhost_doctl_release == 'latest'
-
-- name: extract do-ctl release from github page
-  set_fact:
-    devhost_doctl_release:
-      "{{ latest_doctl_release.url | basename | regex_replace('^v') }}"
-  when: latest_doctl_release is not skipped
-        and latest_doctl_release.url is defined
-
-- debug:
-    msg: "latest do-ctl release: {{ devhost_doctl_release }}"
-  run_once: true
-  when: latest_doctl_release is not skipped
-        and latest_doctl_release.url is defined
 
 - name: download do-ctl
   unarchive:
-    remote_src: yes
-    src: https://github.com/digitalocean/doctl/releases/download/v{{ devhost_doctl_release }}/doctl-{{ devhost_doctl_release }}-linux-amd64.tar.gz
-    dest: "{{ devhost_doctl_binary | dirname }}"
-    creates: "{{ devhost_allow_reinstall | ternary(omit, devhost_doctl_binary) }}"
+    remote_src: true
+    src: "{{ latest_doctl_release.url }}"
+    dest: "{{ devhost_doctl_binary |dirname }}"
+  when: latest_doctl_release is changed
 
 - name: bash completion for do-ctl
   lineinfile:
     path: ~/.local/bashrc/5completion.sh
     line: "source <(doctl completion bash)"
-  become: no
+  become: false
 
 - name: authenticate with digital ocean
   # use transient environment variable to hide token from command line
@@ -43,6 +30,6 @@
     creates: ~/.config/doctl/config.yaml
   environment:
     _digitalocean_token: "{{ devhost_digitalocean_token }}"
-  become: no
+  become: false
   when: devhost_digitalocean_token != ''
 ...
