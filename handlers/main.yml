@@ -5,11 +5,11 @@
   file:
     path: "{{ packet_build_dir.path }}"
     state: absent
-  become: yes
+  become: true
 
 - name: remove packet-cli build cache
   file:
     path: ~/.cache/go-build
     state: absent
-  become: yes
+  become: true
 ...

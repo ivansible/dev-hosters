@@ -1,8 +1,8 @@
 ---
 # defaults file for ivansible.dev_hosters
-is_permitted: no
+is_permitted: false
 
-devhost_allow_reinstall: no
+devhost_allow_reinstall: false
 
 devhost_doctl_release: latest
 devhost_vultr_release: latest

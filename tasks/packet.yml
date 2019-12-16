@@ -7,20 +7,19 @@
 - block:
     - name: detect installed Go version
       set_fact:
-        devhost_packet_golang_version: "{{ devhost_packet_golang_version
-                                         | default(linbase_golang_version, true)
-                                         | default(dev_user_golang_version, true)
-                                         | default('0', true) }}"
+        _packet_golang_version: "{{ devhost_packet_golang_version
+                                  | default(lindev_golang_version, true)
+                                  | default('0', true) }}"
 
     - name: install Go 1.10 for building Packet cli
       apt:
         name: golang-1.10
-      when: devhost_packet_golang_version is version('1.10', '<')
+      when: _packet_golang_version is version('1.10', '<')
 
     - name: set Go version for building Packet cli
       set_fact:
-        devhost_packet_golang_version: '1.10'
-      when: devhost_packet_golang_version is version('1.10', '<')
+        _packet_golang_version: '1.10'
+      when: _packet_golang_version is version('1.10', '<')
 
     - name: create temporary directory for building Packet cli
       tempfile:
@@ -37,7 +36,7 @@
         GOROOT: "{{ go_root }}"
         PATH: "{{ go_root }}/bin:/usr/bin:/bin:/usr/local/bin"
       vars:
-        go_root: /usr/lib/go-{{ devhost_packet_golang_version }}
+        go_root: /usr/lib/go-{{ _packet_golang_version }}
 
     - name: copy Packet cli in place
       synchronize:
