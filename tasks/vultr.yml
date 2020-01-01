@@ -6,7 +6,8 @@
     creates: "{{ devhost_vultr_binary }}"
     reinstall: "{{ devhost_allow_reinstall |bool }}"
     strip_v: true
-    template: "{download_url}/vultr-cli_{ver}_linux_64-bit.tar.gz"
+    template: '{download_url}/vultr-cli_{ver}_linux_64-bit.tar.gz'
+  tags: skip_ansible_lint
   register: latest_vultr_release
 
 - name: download and unpack vultr cli

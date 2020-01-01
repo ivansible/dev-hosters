@@ -1,5 +1,9 @@
 # ivansible.dev_hosters
 
+[![Github Test Status](https://github.com/ivansible/dev-hosters/workflows/Molecule%20test/badge.svg?branch=master)](https://github.com/ivansible/dev-hosters/actions)
+[![Travis Test Status](https://travis-ci.org/ivansible/dev-hosters.svg?branch=master)](https://travis-ci.org/ivansible/dev-hosters)
+[![Ansible Galaxy](https://img.shields.io/badge/galaxy-ivansible.dev__hosters-68a.svg?style=flat)](https://galaxy.ansible.com/ivansible/dev_hosters/)
+
 Install CLI for Amazon AWS, Azure, DigitalOcean, Heroku, Packet, Vultr.
 
 Installation instructions:
@@ -19,7 +23,7 @@ None
 
 ## Variables
 
-    devhost_allow_reinstall: no
+    devhost_allow_reinstall: false
 Allows to refresh already downloaded redistributables.
 
     devhost_digitalocean_token: ""
@@ -39,6 +43,7 @@ API token and project Id for Packet (only eligible for `permitted` host group).
 - `devhost_heroku`
 - `devhost_packet`
 - `devhost_vultr`
+- `devhost_all`
 
 
 ## Dependencies

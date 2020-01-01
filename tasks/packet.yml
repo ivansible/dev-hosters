@@ -5,11 +5,12 @@
   register: packet_binary
 
 - block:
-    - name: detect installed Go version
+    - name: derive installed Go version
       set_fact:
         _packet_golang_version: "{{ devhost_packet_golang_version
                                   | default(lindev_golang_version, true)
-                                  | default('0', true) }}"
+                                  | default('0', true)
+                                  | string }}"
 
     - name: install Go 1.10 for building Packet cli
       apt:
@@ -32,6 +33,7 @@
       go:
         name: github.com/ebsarr/packet
         go_path: "{{ packet_build_dir.path }}"
+      tags: skip_ansible_lint
       environment:
         GOROOT: "{{ go_root }}"
         PATH: "{{ go_root }}/bin:/usr/bin:/bin:/usr/local/bin"
@@ -65,5 +67,5 @@
   when: devhost_packet_auth_token
         and devhost_packet_default_project
         and is_permitted |bool
-  become: no
+  become: false
 ...

@@ -6,7 +6,8 @@
     creates: "{{ devhost_doctl_binary }}"
     reinstall: "{{ devhost_allow_reinstall |bool }}"
     strip_v: true
-    template: "{download_url}/doctl-{ver}-linux-amd64.tar.gz"
+    template: '{download_url}/doctl-{ver}-linux-amd64.tar.gz'
+  tags: skip_ansible_lint
   register: latest_doctl_release
 
 - name: download do-ctl
