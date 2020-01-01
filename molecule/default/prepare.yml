@@ -7,5 +7,7 @@
   roles:
     - role: ivansible.lin_core
     - role: ivansible.lin_devel
+    # test fallback to global completions in the docker test
     - role: ivansible.dev_user
+      when: ansible_virtualization_type != 'docker'
 ...

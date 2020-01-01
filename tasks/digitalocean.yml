@@ -18,10 +18,23 @@
   when: latest_doctl_release is changed
 
 - name: bash completion for do-ctl
-  lineinfile:
-    path: ~/.local/bashrc/5completion.sh
-    line: "source <(doctl completion bash)"
-  become: false
+  block:
+    - name: user-local bash completion for do-ctl (will install globally, if it fails)
+      lineinfile:
+        path: ~/.local/bashrc/5completion.sh
+        line: "source <(doctl completion bash)"
+      become: false
+  rescue:
+    - name: system-global bash completion for aws cli
+      copy:
+        dest: /etc/profile.d/completion_doctl.sh
+        content: |
+          # bash completion for DigitalOcean CLI
+          # ansible-managed
+          if [ -n "${BASH_VERSION-}" -a -n "${PS1-}" -a -n "${BASH_COMPLETION_VERSINFO-}" ]; then
+              source <(doctl completion bash)
+          fi
+      become: true
 
 - name: authenticate with digital ocean
   # use transient environment variable to hide token from command line
