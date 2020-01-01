@@ -6,5 +6,6 @@
       include_vars: vars.yml
   roles:
     - role: ivansible.lin_system
+    - role: ivansible.lin_devel
     - role: ivansible.dev_user
 ...

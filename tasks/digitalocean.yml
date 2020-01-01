@@ -32,5 +32,5 @@
   environment:
     _digitalocean_token: "{{ devhost_digitalocean_token }}"
   become: false
-  when: devhost_digitalocean_token != ''
+  when: devhost_digitalocean_token != '' # noqa 602
 ...

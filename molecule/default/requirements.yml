@@ -8,6 +8,9 @@
 - src: https://github.com/ivansible/lin-system
   name: ivansible.lin_system
   scm: git
+- src: https://github.com/ivansible/lin-devel
+  name: ivansible.lin_devel
+  scm: git
 - src: https://github.com/ivansible/dev-user
   name: ivansible.dev_user
   scm: git
