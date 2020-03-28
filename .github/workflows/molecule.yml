@@ -33,6 +33,10 @@ jobs:
         with:
           path: ivansible/${{ env.ROLE_NAME }}
 
+      - name: Workaround for github issue with heroku gpg key
+        run: curl -sL https://cli-assets.heroku.com/apt/release.key | sudo apt-key add -
+        if: matrix.os == 'ubuntu-16.04'
+
       - name: Install requisites
         shell: bash
         run: |
