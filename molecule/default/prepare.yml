@@ -6,7 +6,7 @@
       include_vars: vars.yml
   roles:
     - role: ivansible.lin_core
-    - role: ivansible.lin_devel
+    - role: ivansible.lin_go
     # test fallback to global completions in the docker test
     - role: ivansible.dev_user
       when: ansible_virtualization_type != 'docker'

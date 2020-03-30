@@ -48,14 +48,15 @@ API token and project Id for Packet (only eligible for `permitted` host group).
 
 ## Dependencies
 
-None
+- `ivansible.lin_base`
+- `ivansible.lin_go` (for Packet cli, imports `lin_go_version`)
 
 
 ## Example Playbook
 
-    - hosts: vag2
+    - hosts: devhost
       roles:
-        - role: ivansible.dev_hosters
+        - ivansible.dev_hosters
 
 
 ## License

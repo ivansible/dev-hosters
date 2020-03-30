@@ -1,6 +1,6 @@
 ---
 dependencies:
-  - ivansible.lin_base  # for common defaults, handlers, modules
+  - ivansible.lin_base
 
 galaxy_info:
   role_name: dev_hosters
