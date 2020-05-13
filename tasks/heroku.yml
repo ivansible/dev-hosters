@@ -12,4 +12,5 @@
 - name: install heroku toolbeit
   apt:
     name: heroku
+    state: "{{ devhost_upgrade |bool |ternary('latest','present') }}"
 ...

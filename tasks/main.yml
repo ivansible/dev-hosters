@@ -1,5 +1,4 @@
 ---
-# tasks for ivansible.dev_hosters
 - block:
     - import_tasks: aws.yml
       tags: devhost_aws
@@ -23,7 +22,9 @@
 
     - import_tasks: vultr.yml
       tags: devhost_vultr
+  ## end of block
   become: true
-  tags: devhost_all
-  # end of block
+  tags:
+    - devhost_all
+    - dev_hosters_all
 ...

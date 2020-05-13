@@ -2,6 +2,7 @@
 - name: install aws cli
   apt:
     name: awscli
+    state: "{{ devhost_upgrade |bool |ternary('latest','present') }}"
 
 - name: bash completion for aws cli
   block:

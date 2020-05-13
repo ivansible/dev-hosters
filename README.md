@@ -23,8 +23,8 @@ None
 
 ## Variables
 
-    devhost_allow_reinstall: false
-Allows to refresh already downloaded redistributables.
+    devhost_upgrade: false
+Allows to upgrade already installed packages.
 
     devhost_digitalocean_token: ""
 API token for DigitalOcean (only eligible for `permitted` host group).

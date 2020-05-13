@@ -35,7 +35,7 @@
       delegate_to: "{{ inventory_hostname }}"
       notify: remove packet-cli build cache
 
-  when: devhost_allow_reinstall |bool
+  when: devhost_upgrade |bool
         or not packet_binary.stat.exists
 
 - name: cleanup temporary Packet files
