@@ -25,7 +25,7 @@
         line: "source <(doctl completion bash)"
       become: false
   rescue:
-    - name: system-global bash completion for aws cli
+    - name: system-global bash completion for digitalocean cli
       copy:
         dest: /etc/profile.d/completion_doctl.sh
         content: |

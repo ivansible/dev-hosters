@@ -22,6 +22,9 @@
 
     - import_tasks: vultr.yml
       tags: devhost_vultr
+
+    - import_tasks: hetzner.yml
+      tags: devhost_hetzner
   ## end of block
   become: true
   tags:

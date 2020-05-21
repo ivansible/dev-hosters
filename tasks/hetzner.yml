@@ -1,0 +1,42 @@
+---
+- name: detect latest hetzner-cloud cli release
+  github_release:
+    repository: hetznercloud/cli
+    release: "{{ devhost_hcloud_release }}"
+    creates: "{{ devhost_hcloud_binary }}"
+    reinstall: "{{ devhost_upgrade |bool }}"
+    strip_v: false
+    template: '{download_url}/hcloud-linux-amd64.tar.gz'
+  tags: skip_ansible_lint
+  register: latest_hcloud_release
+
+- name: download and unpack hetzner-cloud cli
+  unarchive:
+    remote_src: true
+    src: "{{ latest_hcloud_release.url }}"
+    dest: "{{ devhost_hcloud_binary |dirname }}"
+    exclude:
+      - LICENSE
+      - README.md
+      - CHANGES.md
+  when: latest_hcloud_release is changed
+
+- name: bash completion for hcloud cli
+  block:
+    - name: user-local bash completion for hcloud (will install globally, if it fails)
+      lineinfile:
+        path: ~/.local/bashrc/5completion.sh
+        line: "source <(hcloud completion bash)"
+      become: false
+  rescue:
+    - name: system-global bash completion for hcloud cli
+      copy:
+        dest: /etc/profile.d/completion_hcloud.sh
+        content: |
+          # bash completion for Hetzner-Cloud CLI
+          # ansible-managed
+          if [ -n "${BASH_VERSION-}" -a -n "${PS1-}" -a -n "${BASH_COMPLETION_VERSINFO-}" ]; then
+              source <(hcloud completion bash)
+          fi
+      become: true
+...
