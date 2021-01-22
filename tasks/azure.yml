@@ -2,14 +2,14 @@
 - name: add azure signing key
   apt_key:
     url: https://packages.microsoft.com/keys/microsoft.asc
-  # fix sporadic .ru network failures
   register: apt_key_result
-  until: "'timed out' not in apt_key_result.msg |default('')"
+  until: apt_key_result.msg |d('') is not search('timed out')
 
 - name: add azure repository
   apt_repository:
     repo: "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_lsb.codename }} main"
     filename: azure-cli
+    mode: 0644
 
 - name: install azure cli
   apt:

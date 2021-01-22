@@ -1,7 +1,18 @@
 ---
-- name: install aws cli
-  apt:
-    name: awscli
+- block:
+    - name: install aws cli (ok to fail, will rescue)
+      apt:
+        name: awscli
+        state: "{{ state }}"
+        update_cache: "{{ devhost_upgrade |bool }}"
+      no_log: "{{ hide_secrets |bool }}"
+  rescue:
+    - name: install aws cli (update apt cache)
+      apt:
+        name: awscli
+        state: "{{ state }}"
+        update_cache: true
+  vars:
     state: "{{ devhost_upgrade |bool |ternary('latest','present') }}"
 
 - name: user-local bash completion for aws cli

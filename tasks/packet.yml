@@ -27,6 +27,8 @@
         PATH: "{{ go_root }}/bin:/usr/bin:/bin:/usr/local/bin"
       vars:
         go_root: /usr/lib/go-{{ lin_go_version }}
+      register: _build_packet_cli
+      until: _build_packet_cli is successful
 
     - name: copy Packet cli in place
       synchronize:
@@ -46,14 +48,16 @@
       file:
         path: "{{ ansible_user_dir }}/.packet"
         state: directory
+        mode: 0755
 
     - name: create Packet cli profile
       template:
         src: packet-config.json.j2
         dest: "{{ ansible_user_dir }}/.packet/config"
         mode: 0640
-  when: devhost_packet_auth_token
-        and devhost_packet_default_project
-        and is_permitted |bool
+  when:
+    - devhost_packet_auth_token |d('')
+    - devhost_packet_default_project |d('')
+    - is_permitted |bool
   become: false
 ...
