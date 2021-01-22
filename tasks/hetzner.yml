@@ -21,22 +21,24 @@
       - CHANGES.md
   when: latest_hcloud_release is changed
 
-- name: bash completion for hcloud cli
-  block:
-    - name: user-local bash completion for hcloud (will install globally, if it fails)
-      lineinfile:
-        path: ~/.local/bashrc/5completion.sh
-        line: "source <(hcloud completion bash)"
-      become: false
-  rescue:
-    - name: system-global bash completion for hcloud cli
-      copy:
-        dest: /etc/profile.d/completion_hcloud.sh
-        content: |
-          # bash completion for Hetzner-Cloud CLI
-          # ansible-managed
-          if [ -n "${BASH_VERSION-}" -a -n "${PS1-}" -a -n "${BASH_COMPLETION_VERSINFO-}" ]; then
-              source <(hcloud completion bash)
-          fi
-      become: true
+- name: user-local bash completion for hcloud
+  lineinfile:
+    path: "{{ _devhost_user_bash_completions }}"
+    line: "source <(hcloud completion bash)"
+  become: false
+  when: _stat_user_bash_completions.stat.exists
+
+- name: system-global bash completion for hcloud cli
+  copy:
+    dest: /etc/profile.d/completion_hcloud.sh
+    content: |
+      # bash completion for Hetzner-Cloud CLI
+      # ansible-managed
+      if [ -n "${BASH_VERSION-}" -a -n "${PS1-}" -a -n "${BASH_COMPLETION_VERSINFO-}" ]; then
+          source <(hcloud completion bash)
+      fi
+    force: true
+    mode: 0644
+  become: true
+  when: not _stat_user_bash_completions.stat.exists
 ...

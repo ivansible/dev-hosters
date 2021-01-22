@@ -19,4 +19,6 @@ devhost_vultr_binary: /usr/local/bin/vultr-cli
 devhost_hcloud_binary: /usr/local/bin/hcloud
 devhost_awless_binary: /usr/local/bin/awless
 devhost_packet_binary: /usr/local/bin/packet
+
+_devhost_user_bash_completions: "{{ ansible_user_dir }}/.local/bashrc/5completion.sh"
 ...

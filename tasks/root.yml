@@ -1,0 +1,27 @@
+---
+- import_tasks: aws.yml
+  tags: devhost_aws
+
+- import_tasks: awless.yml
+  tags: devhost_awless
+
+- import_tasks: azure.yml
+  tags: devhost_azure
+
+- import_tasks: digitalocean.yml
+  tags:
+    - devhost_digitalocean
+    - devhost_do
+
+- import_tasks: heroku.yml
+  tags: devhost_heroku
+
+- import_tasks: packet.yml
+  tags: devhost_packet
+
+- import_tasks: vultr.yml
+  tags: devhost_vultr
+
+- import_tasks: hetzner.yml
+  tags: devhost_hetzner
+...

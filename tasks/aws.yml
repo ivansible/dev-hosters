@@ -4,22 +4,24 @@
     name: awscli
     state: "{{ devhost_upgrade |bool |ternary('latest','present') }}"
 
-- name: bash completion for aws cli
-  block:
-    - name: user-local bash completion for aws cli (will install globally, if it fails)
-      lineinfile:
-        path: ~/.local/bashrc/5completion.sh
-        line: 'complete -C /usr/bin/aws_completer aws'
-      become: false
-  rescue:
-    - name: system-global bash completion for aws cli
-      copy:
-        dest: /etc/profile.d/completion_aws.sh
-        content: |
-          # bash completion for AWS CLI
-          # ansible-managed
-          if [ -n "${BASH_VERSION-}" -a -n "${PS1-}" -a -n "${BASH_COMPLETION_VERSINFO-}" ]; then
-              complete -C /usr/bin/aws_completer aws
-          fi
-      become: true
+- name: user-local bash completion for aws cli
+  lineinfile:
+    path: "{{ _devhost_user_bash_completions }}"
+    line: 'complete -C /usr/bin/aws_completer aws'
+  become: false
+  when: _stat_user_bash_completions.stat.exists
+
+- name: system-global bash completion for aws cli
+  copy:
+    dest: /etc/profile.d/completion_aws.sh
+    content: |
+      # bash completion for AWS CLI
+      # ansible-managed
+      if [ -n "${BASH_VERSION-}" -a -n "${PS1-}" -a -n "${BASH_COMPLETION_VERSINFO-}" ]; then
+          complete -C /usr/bin/aws_completer aws
+      fi
+    force: true
+    mode: 0644
+  become: true
+  when: not _stat_user_bash_completions.stat.exists
 ...
