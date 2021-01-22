@@ -1,7 +1,6 @@
 # ivansible.dev_hosters
 
-[![Github Test Status](https://github.com/ivansible/dev-hosters/workflows/Molecule%20test/badge.svg?branch=master)](https://github.com/ivansible/dev-hosters/actions)
-[![Travis Test Status](https://travis-ci.org/ivansible/dev-hosters.svg?branch=master)](https://travis-ci.org/ivansible/dev-hosters)
+[![Github Test Status](https://github.com/ivansible/dev-hosters/workflows/test/badge.svg?branch=master)](https://github.com/ivansible/dev-hosters/actions)
 [![Ansible Galaxy](https://img.shields.io/badge/galaxy-ivansible.dev__hosters-68a.svg?style=flat)](https://galaxy.ansible.com/ivansible/dev_hosters/)
 
 Install CLI for Amazon AWS, Azure, DigitalOcean, Heroku, Packet, Vultr.
@@ -66,4 +65,4 @@ MIT
 
 ## Author Information
 
-Created in 2018-2020 by [IvanSible](https://github.com/ivansible)
+Created in 2018-2021 by [IvanSible](https://github.com/ivansible)
