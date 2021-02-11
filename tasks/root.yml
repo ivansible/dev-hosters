@@ -18,6 +18,7 @@
 
 - import_tasks: packet.yml
   tags: devhost_packet
+  when: devhost_packet_enabled |bool
 
 - import_tasks: vultr.yml
   tags: devhost_vultr
