@@ -1,0 +1,13 @@
+---
+- name: install beam, the solusvm client
+  pip:
+    name: beam
+    executable: pip3
+
+- name: configure solusvm vps machines for beam
+  template:
+    src: beam.ini.j2
+    dest: ~/.beam.ini
+    mode: 0640
+  become: false
+...

@@ -22,4 +22,11 @@ devhost_awless_binary: /usr/local/bin/awless
 devhost_packet_binary: /usr/local/bin/packet
 
 _devhost_user_bash_completions: "{{ ansible_user_dir }}/.local/bashrc/5completion.sh"
+
+devhost_solusvm_enabled: false
+devhost_solusvm_servers: ~
+# - name: vm1
+#   host: https://solusvm.provider.com
+#   key: 12345-ABCDE-PQRST
+#   hash: 0123456789abcdef0123456789abcdef01234567
 ...

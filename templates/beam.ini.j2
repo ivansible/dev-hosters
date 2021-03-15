@@ -1,0 +1,15 @@
+{% with servers = devhost_solusvm_servers |default([],true) %}
+[special:vendors]
+{% for vps in servers |default([],true) %}
+vendor_{{ vps.name }} = {{ vps.host }}
+{% endfor %}
+{% if servers |length > 0 %}
+default = vendor_{{ servers[0].name }}
+{% endif %}
+{% for vps in servers %}
+[{{ vps.name }}]
+key = {{ vps.key }}
+hash = {{ vps.hash }}
+vendor = vendor_{{ vps.name }}
+{% endfor %}
+{% endwith %}

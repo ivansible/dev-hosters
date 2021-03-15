@@ -25,4 +25,8 @@
 
 - import_tasks: hetzner.yml
   tags: devhost_hetzner
+
+- import_tasks: solusvm.yml
+  tags: devhost_solusvm
+  when: devhost_solusvm_enabled |bool
 ...

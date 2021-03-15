@@ -32,6 +32,16 @@ API token for DigitalOcean (only eligible for `permitted` host group).
     devhost_packet_default_project: ""
 API token and project Id for Packet (only eligible for `permitted` host group).
 
+    devhost_solusvm_enabled: false
+Allows to install `beam` a python client for the SolusVM API.
+
+    devhost_solusvm_servers: ~
+The list of SolusVM servers to configure.
+Every record should have the following fields:
+- `name`: alphanumeric identifier of the server
+- `host`: URL of the SolusVM API host, e.g. `https://solusvm.provider.com`
+- `key`: three all-upper alphanumeric tokens separated by dashes, e.g. `12345-ABCDE-PQRST`
+- `hash`: a long hexadecimal string, e.g. `0123456789abcdef0123456789abcdef01234567`
 
 ## Tags
 
