@@ -4,6 +4,12 @@ is_permitted: false
 
 devhost_upgrade: false
 
+devhost_aws_enabled: true
+devhost_azure_enabled: true
+devhost_heroku_enabled: true
+devhost_packet_enabled: false
+devhost_solusvm_enabled: false
+
 devhost_doctl_release: latest
 devhost_vultr_release: latest
 devhost_hcloud_release: latest
@@ -11,7 +17,6 @@ devhost_awless_release: latest
 
 devhost_digitalocean_token: ""
 
-devhost_packet_enabled: false
 devhost_packet_auth_token: ""
 devhost_packet_default_project: ""
 
@@ -23,7 +28,6 @@ devhost_packet_binary: /usr/local/bin/packet
 
 _devhost_user_bash_completions: "{{ ansible_user_dir }}/.local/bashrc/5completion.sh"
 
-devhost_solusvm_enabled: false
 devhost_solusvm_servers: ~
 # - name: vm1
 #   host: https://solusvm.provider.com

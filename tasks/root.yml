@@ -1,12 +1,14 @@
 ---
 - import_tasks: aws.yml
   tags: devhost_aws
+  when: devhost_aws_enabled |bool
 
 - import_tasks: awless.yml
   tags: devhost_awless
 
 - import_tasks: azure.yml
   tags: devhost_azure
+  when: devhost_azure_enabled |bool
 
 - import_tasks: digitalocean.yml
   tags:
@@ -15,6 +17,7 @@
 
 - import_tasks: heroku.yml
   tags: devhost_heroku
+  when: devhost_heroku_enabled |bool
 
 - import_tasks: packet.yml
   tags: devhost_packet
