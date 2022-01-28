@@ -5,7 +5,7 @@
     release: "{{ devhost_awless_release }}"
     creates: "{{ devhost_awless_binary }}"
     reinstall: "{{ devhost_upgrade |bool }}"
-    template: '{download_url}/awless-linux-amd64.tar.gz'
+    template: '{download_url}/awless-linux-{goarch}.tar.gz'
   tags: skip_ansible_lint
   register: latest_awless_release
 
