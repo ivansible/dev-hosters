@@ -7,11 +7,14 @@
   tags: devhost_awless
   ## awless does not provide arm64 binaries yet
   when:
-    - lin_apt_arch == 'amd64'
+    - ansible_architecture == 'x86_64'
 
 - import_tasks: azure.yml
   tags: devhost_azure
-  when: devhost_azure_enabled |bool
+  when:
+    - devhost_azure_enabled |bool
+    ## azure-cli is not available for bionic/arm64
+    - ansible_architecture == 'x86_64' or ansible_lsb.release is version('20.04','>=')
 
 - import_tasks: digitalocean.yml
   tags:
@@ -20,11 +23,11 @@
 
 - import_tasks: heroku.yml
   tags: devhost_heroku
-  ## TODO install heroku tarball on arm64
-  ## SEE  https://devcenter.heroku.com/articles/heroku-cli#tarballs
   when:
-    - lin_apt_arch == 'amd64'
     - devhost_heroku_enabled |bool
+    ## TODO install heroku tarball on arm64
+    ## SEE  https://devcenter.heroku.com/articles/heroku-cli#tarballs
+    - ansible_architecture == 'x86_64'
 
 - import_tasks: packet.yml
   tags: devhost_packet

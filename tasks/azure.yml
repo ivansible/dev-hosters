@@ -7,7 +7,7 @@
 
 - name: add azure repository
   apt_repository:
-    repo: "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_lsb.codename }} main"
+    repo: "deb [arch={{ lin_apt_arch }}] https://packages.microsoft.com/repos/azure-cli/ {{ ansible_lsb.codename }} main"
     filename: azure-cli
     mode: 0644
 
